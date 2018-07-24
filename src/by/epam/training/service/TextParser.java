@@ -5,13 +5,13 @@
 
 package by.epam.training.service;
 
-import by.epam.training.model.Composite;
+import by.epam.training.model.IComposite;
 import by.epam.training.model.CompositeObject;
 import by.epam.training.model.Leaf;
 
 public abstract class TextParser {
 
-    public static Composite parseToSentences(String text) {
+    public static IComposite parseToSentences(String text) {
         // TODO: implement parser to sentences
         return null; //stub
     }
@@ -22,8 +22,8 @@ public abstract class TextParser {
      * objects and delimiters as leaf-objects to composite-object "sentence"
      * and returns it
      */
-    public static Composite parseToWords(String sentence) {
-        Composite compositeSentence = new CompositeObject();
+    public static IComposite parseToWords(String sentence) {
+        IComposite compositeSentence = new CompositeObject();
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < sentence.length(); i++) {
             String currentSymbol = sentence.substring(i, i + 1);
@@ -46,11 +46,11 @@ public abstract class TextParser {
 
     /*
      * method takes sequence of letters that represents a word and splits it to
-     * separate characters, each of them is added to Composite-object "word" as
-     * a Leaf-object, then method returns Composite-object "word"
+     * separate characters, each of them is added to IComposite-object "word" as
+     * a Leaf-object, then method returns IComposite-object "word"
      */
-    private static Composite parseToChars(String word) {
-        Composite compositeWord = new CompositeObject();
+    private static IComposite parseToChars(String word) {
+        IComposite compositeWord = new CompositeObject();
         for (char character : word.toCharArray()) {
             String content = String.valueOf(character);
             compositeWord.add(new Leaf(content));

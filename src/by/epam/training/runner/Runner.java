@@ -11,10 +11,10 @@ public class Runner {
 
     public static void main(String[] args) {
         /*
-         * Just for testing Composite-pattern !!!
+         * Just for testing IComposite-pattern !!!
          * TODO: whole project -_-
          */
-        Composite wholeText = null;
+        IComposite wholeText = null;
         wholeText = TextParser.parseToWords("Hello \t world,\tI\tam\tMax...");
 
         LOG.info(wholeText);

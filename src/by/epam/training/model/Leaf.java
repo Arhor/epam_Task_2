@@ -1,15 +1,15 @@
 package by.epam.training.model;
 
-public class Leaf implements Composite {
+public class Leaf implements IComposite {
 
-    String content;
+    private String content;
 
     public Leaf(String content) {
         this.content = content;
     }
 
     @Override
-    public void add(Composite compositeObject) throws UnsupportedOperationException {
+    public void add(IComposite compositeObject) throws UnsupportedOperationException {
         throw new UnsupportedOperationException("it's impossible to add to leaf");
     }
 
@@ -19,7 +19,7 @@ public class Leaf implements Composite {
     }
 
     @Override
-    public Composite get(int index) {
+    public IComposite get(int index) {
         return this;
     }
 

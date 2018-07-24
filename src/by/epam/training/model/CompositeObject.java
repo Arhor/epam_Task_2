@@ -3,16 +3,16 @@ package by.epam.training.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompositeObject implements Composite {
+public class CompositeObject implements IComposite {
 
-    List<Composite> list = new ArrayList<>();
+    List<IComposite> list = new ArrayList<>();
 
     public int size() {
         return list.size();
     }
 
     @Override
-    public void add(Composite compositeObject) {
+    public void add(IComposite compositeObject) {
         list.add(compositeObject);
     }
 
@@ -21,14 +21,14 @@ public class CompositeObject implements Composite {
         list.remove(index);
     }
 
-    public Composite get(int index) {
+    public IComposite get(int index) {
         return list.get(index);
     }
 
     @Override
     public String toString() {
         StringBuilder innerContent = new StringBuilder();
-        for (Composite compositeObject : list) {
+        for (IComposite compositeObject : list) {
             innerContent.append(compositeObject.toString());
         }
         return innerContent.toString();
