@@ -11,9 +11,20 @@ import by.epam.training.model.Leaf;
 
 public abstract class TextParser {
 
-    public static IComposite parseToSentences(String text) {
-        // TODO: implement parser to sentences
-        return null; //stub
+    public static IComposite parseToSentences(String paragraph) {
+        IComposite compositeParagraph = new CompositeObject();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < paragraph.length(); i++) {
+            String currentSymbol = paragraph.substring(i, i + 1);
+            sb.append(currentSymbol);
+            if (i == paragraph.length() - 1
+                    || (currentSymbol.matches("[.?!]")
+                    && paragraph.substring(i + 1, i + 2).matches("[^.?!]"))) {
+                    compositeParagraph.add(parseToWords(sb.toString()));
+                    sb = new StringBuilder();
+            }
+        }
+        return compositeParagraph;
     }
 
     /*

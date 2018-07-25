@@ -15,22 +15,10 @@ public class Runner {
          * TODO: whole project -_-
          */
         IComposite wholeText = null;
-        wholeText = TextParser.parseToWords("Hello \t world,\tI\tam\tMax...");
-
-        LOG.info(wholeText);
+        wholeText = TextParser.parseToSentences("Hello world... My name is Max! How's your doing!? ");
 
         for (int i = 0; i < ((CompositeObject)wholeText).size(); i++) {
-            if (wholeText.get(i) instanceof Leaf) {
-                String result = "delimiter is: " + wholeText.get(i);
-                if (wholeText.get(i).toString().equals("\t")) {
-                    result += " - it's a TAB";
-                }
-                LOG.info(result);
-            } else {
-                for (int j = 0; j < ((CompositeObject)wholeText.get(i)).size(); j++) {
-                    LOG.info("letter: " + wholeText.get(i).get(j));
-                }
-            }
+            LOG.info(i + 1 + " sentence is: " + wholeText.get(i));
         }
     }
 }
