@@ -11,6 +11,17 @@ import by.epam.training.model.Leaf;
 
 public abstract class TextParser {
 
+    public static IComposite parseToParagraphs(String text) {
+        // TODO: implement parsing to separate paragraphs and listings
+        return null; // stub
+    }
+
+    /*
+     * method takes a string that represents a single paragraph and split it
+     * to separate sentences, adds them as composite-objects to composite-
+     * object paragraph and returns it
+     */
+
     public static IComposite parseToSentences(String paragraph) {
         IComposite compositeParagraph = new CompositeObject();
         StringBuilder sb = new StringBuilder();
@@ -28,17 +39,17 @@ public abstract class TextParser {
     }
 
     /*
-     * method takes string that represents a single sentence and splits it to
+     * method takes a string that represents a single sentence and splits it to
      * separate words and delimiters, then method adds words as composite-
-     * objects and delimiters as leaf-objects to composite-object "sentence"
+     * objects and delimiters as leaf-objects to composite-object sentence
      * and returns it
      */
-    public static IComposite parseToWords(String sentence) {
+    private static IComposite parseToWords(String sentence) {
         IComposite compositeSentence = new CompositeObject();
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < sentence.length(); i++) {
             String currentSymbol = sentence.substring(i, i + 1);
-            if (currentSymbol.matches("[A-Za-z]")) {
+            if (currentSymbol.matches("[A-Za-z0-9]")) {
                 sb.append(currentSymbol);
             } else {
                 compositeSentence.add(new Leaf(currentSymbol)); // delimiter
@@ -46,7 +57,7 @@ public abstract class TextParser {
             if (
                     sb.length() != 0
                     &&(i == sentence.length() - 1
-                    || sentence.substring(i + 1, i + 2).matches("[^A-Za-z]"))
+                    || sentence.substring(i + 1, i + 2).matches("[^A-Za-z0-9]"))
                ) {
                 compositeSentence.add(parseToChars(sb.toString())); // word
                 sb = new StringBuilder();
@@ -56,9 +67,9 @@ public abstract class TextParser {
     }
 
     /*
-     * method takes sequence of letters that represents a word and splits it to
-     * separate characters, each of them is added to IComposite-object "word" as
-     * a Leaf-object, then method returns IComposite-object "word"
+     * method takes a sequence of letters that represents a word and splits it
+     * to separate characters, each of them is added to IComposite-object word
+     * as a Leaf-object, then method returns IComposite-object word
      */
     private static IComposite parseToChars(String word) {
         IComposite compositeWord = new CompositeObject();
