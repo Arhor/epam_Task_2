@@ -13,7 +13,17 @@ public abstract class TextParser {
 
     public static IComposite parseToParagraphs(String text) {
         // TODO: implement parsing to separate paragraphs and listings
-        return null; // stub
+        IComposite compositeText = new CompositeObject();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < text.length(); i++) {
+            String currentSymbol = text.substring(i, i + 1);
+            sb.append(currentSymbol);
+            if (currentSymbol.equals("\n") || i == text.length() - 1) {
+                compositeText.add(parseToSentences(sb.toString()));
+                sb = new StringBuilder();
+            }
+        }
+        return compositeText; // stub
     }
 
     /*

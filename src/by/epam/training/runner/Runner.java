@@ -34,10 +34,10 @@ public class Runner {
 
 
         IComposite wholeText = null;
-        wholeText = TextParser.parseToSentences(sb.toString());
+        wholeText = TextParser.parseToParagraphs(sb.toString());
 
         for (int i = 0; i < ((CompositeObject)wholeText).size(); i++) {
-            LOG.info(i + 1 + " sentence is: " + wholeText.get(i));
+            LOG.info(String.format("%2d: %s", i + 1, wholeText.get(i)));
         }
     }
 }
