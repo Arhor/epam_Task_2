@@ -36,6 +36,7 @@ public class Runner {
         IComposite wholeText = null;
         wholeText = TextParser.parseToParagraphs(sb.toString());
 
+        LOG.info("elements in the text: " + ((CompositeObject)wholeText).size());
         for (int i = 0; i < ((CompositeObject)wholeText).size(); i++) {
             LOG.info(String.format("%2d: %s", i + 1, wholeText.get(i)));
         }

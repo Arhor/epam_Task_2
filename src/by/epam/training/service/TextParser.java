@@ -11,19 +11,38 @@ import by.epam.training.model.Leaf;
 
 public abstract class TextParser {
 
+    /*
+     *
+     */
+
     public static IComposite parseToParagraphs(String text) {
-        // TODO: implement parsing to separate paragraphs and listings
         IComposite compositeText = new CompositeObject();
         StringBuilder sb = new StringBuilder();
+        boolean isListing = false;
+        boolean listingPresent = false;
         for (int i = 0; i < text.length(); i++) {
             String currentSymbol = text.substring(i, i + 1);
             sb.append(currentSymbol);
-            if (currentSymbol.equals("\n") || i == text.length() - 1) {
-                compositeText.add(parseToSentences(sb.toString()));
-                sb = new StringBuilder();
+            if (currentSymbol.equals("\\") && !isListing && sb.length() == 1) {
+                isListing = true;
+            } else if (isListing && currentSymbol.equals("\\")){
+                isListing = false;
+                listingPresent = true;
+            }
+
+            if (!isListing) {
+                if (currentSymbol.equals("\n") || i == text.length() - 1) {
+                    if (listingPresent) {
+                        compositeText.add(new Leaf(sb.toString()));
+                        listingPresent = false;
+                    } else {
+                        compositeText.add(parseToSentences(sb.toString()));
+                    }
+                    sb = new StringBuilder();
+                }
             }
         }
-        return compositeText; // stub
+        return compositeText;
     }
 
     /*
