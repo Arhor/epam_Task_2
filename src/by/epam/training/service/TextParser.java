@@ -1,5 +1,9 @@
 /*
+ * class: TextParser
  *
+ * version: 1.0 26 Jul 2018
+ *
+ * author: Maxim Burishinets
  */
 
 
@@ -12,9 +16,11 @@ import by.epam.training.model.Leaf;
 public abstract class TextParser {
 
     /*
-     *
+     * method takes a string that represents whole text, splits it to separate
+     * paragraphs and code-listing blocks (text blocks between /~ and ~/ signs)
+     * then add them to composite-object text (composite paragraphs and leaf
+     * listing-blocks) and returns it
      */
-
     public static IComposite parseToParagraphs(String text) {
         IComposite compositeText = new CompositeObject();
         StringBuilder sb = new StringBuilder();
@@ -24,12 +30,18 @@ public abstract class TextParser {
             String currentSymbol = text.substring(i, i + 1);
             sb.append(currentSymbol);
             if (currentSymbol.equals("\\") && !isListing && sb.length() == 1) {
-                isListing = true;
-            } else if (isListing && currentSymbol.equals("\\")){
-                isListing = false;
-                listingPresent = true;
+                if (i < text.length() - 1
+                        && text.substring(i, i + 2).equals("\\~")) {
+                    isListing = true;
+                }
+            } else if (isListing && currentSymbol.equals("~")){
+                if (i < text.length() - 1
+                        && text.substring(i, i + 2).equals("~\\")) {
+                    isListing = false;
+                    listingPresent = true;
+                }
             }
-
+            // TODO: fix below - method doesn't add listing without "~/" sign
             if (!isListing) {
                 if (currentSymbol.equals("\n") || i == text.length() - 1) {
                     if (listingPresent) {
@@ -51,7 +63,7 @@ public abstract class TextParser {
      * object paragraph and returns it
      */
 
-    public static IComposite parseToSentences(String paragraph) {
+    private static IComposite parseToSentences(String paragraph) {
         IComposite compositeParagraph = new CompositeObject();
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < paragraph.length(); i++) {

@@ -1,11 +1,12 @@
 The action at the boundaries
-Because of erasure, I find that the most confusing aspect \of generics\ is the fact that you can represent things that have no meaning. For example:
-\: generics/ArrayMaker.java
+Because of erasure, I find that the most confusing aspect of generics is the fact that you can represent things that have no meaning. For example:
+\~: generics/ArrayMaker.java
 
 import java.lang.reflect.*;
 import java.util.*;
 
 public class ArrayMaker<T> {
+
     private Class<T> kind;
 
     public ArrayMaker(Class<T> kind) { this.kind = kind; }
@@ -25,5 +26,5 @@ public class ArrayMaker<T> {
 /* Output:
 [null, null, null, null, null, null, null, null, null]
 */
-\
+~\
 Even though kind is stored as Class<T>, erasure means that it is actually just being stored as a Class, with no parameter. So, when you do something with it, as in creating an array, Array.newInstance( ) doesn’t actually have the type information that’s implied in kind; so it cannot produce the specific result, which must therefore be cast, which produces a warning that you cannot satisfy.

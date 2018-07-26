@@ -14,10 +14,9 @@ public class Runner {
     private static final Logger LOG = Logger.getLogger(Runner.class);
 
     public static void main(String[] args) {
-        /*
-         * Just for testing IComposite-pattern !!!
-         * TODO: whole project -_-
-         */
+
+        // TODO: find longest anagram represented in the text
+
         StringBuilder sb = new StringBuilder();
         File file = new File("text.txt");
         try (FileReader fileReader = new FileReader(file)) {
@@ -32,9 +31,7 @@ public class Runner {
             LOG.error("I/O exception", e);
         }
 
-
-        IComposite wholeText = null;
-        wholeText = TextParser.parseToParagraphs(sb.toString());
+        IComposite wholeText = TextParser.parseToParagraphs(sb.toString());
 
         LOG.info("elements in the text: " + ((CompositeObject)wholeText).size());
         for (int i = 0; i < ((CompositeObject)wholeText).size(); i++) {

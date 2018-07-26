@@ -1,3 +1,11 @@
+/*
+ * class: CompositeObject
+ *
+ * version: 1.0 21 Jul 2018
+ *
+ * author: Maxim Burishinets
+ */
+
 package by.epam.training.model;
 
 import java.util.ArrayList;
@@ -5,7 +13,7 @@ import java.util.List;
 
 public class CompositeObject implements IComposite {
 
-    List<IComposite> list = new ArrayList<>();
+    private List<IComposite> list = new ArrayList<>();
 
     public int size() {
         return list.size();
