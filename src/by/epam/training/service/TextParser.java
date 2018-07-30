@@ -120,4 +120,42 @@ public abstract class TextParser {
         }
         return compositeWord;
     }
+
+    // returns string that contains information about parsed text
+    public static String getTextInfo(IComposite wholeText) {
+        int listing = 0;
+        int paragraph = 0;
+        int sentence = 0;
+        int word = 0;
+        int delimiter = 0;
+        int letter = 0;
+        for (int i = 0; i < ((CompositeObject)wholeText).size(); i++) {
+            IComposite object1 = wholeText.get(i);
+            if (object1 instanceof Leaf) {
+                listing++;
+            } else {
+                paragraph++;
+                for (int j = 0; j < ((CompositeObject)object1).size(); j++) {
+                    sentence++;
+                    IComposite object2 = object1.get(j);
+                    for (int k = 0; k < ((CompositeObject)object2).size(); k++) {
+                        IComposite object3 = object2.get(k);
+                        if (object3 instanceof Leaf) {
+                            delimiter++;
+                        } else {
+                            word++;
+                            letter += ((CompositeObject)object3).size();
+                        }
+                    }
+                }
+            }
+        }
+        return String.format("listing: %d%n" +
+                "paragraph: %d%n" +
+                "sentence: %d%n" +
+                "word: %d%n" +
+                "delimiter: %d%n" +
+                "letter: %d%n",
+                listing, paragraph, sentence, word, delimiter, letter);
+    }
 }

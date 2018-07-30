@@ -37,5 +37,7 @@ public class Runner {
         for (int i = 0; i < ((CompositeObject)wholeText).size(); i++) {
             LOG.info(String.format("%2d: %s", i + 1, wholeText.get(i)));
         }
+
+        LOG.info(TextParser.getTextInfo(wholeText));
     }
 }

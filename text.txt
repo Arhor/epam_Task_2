@@ -27,4 +27,4 @@ public class ArrayMaker<T> {
 [null, null, null, null, null, null, null, null, null]
 */
 ~\
-Even though kind is stored as Class<T>, erasure means that it is actually just being stored as a Class, with no parameter. So, when you do something with it, as in creating an array, Array.newInstance( ) doesn’t actually have the type information that’s implied in kind; so it cannot produce the specific result, which must therefore be cast, which produces a warning that you cannot satisfy.
+Even though kind is stored as Class<T>, erasure means that it is actually just being stored as a Class, with no parameter. So, when you do something with it, as in creating an array, Array.newInstance( ) doesn't actually have the type information that's implied in kind; so it cannot produce the specific result, which must therefore be cast, which produces a warning that you cannot satisfy.
