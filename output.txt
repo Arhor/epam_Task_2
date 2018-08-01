@@ -2,17 +2,14 @@
 The action at the boundaries
 
 [Sentence]:
-
 The action at the boundaries
 
 [Paragraph]:
 Because of erasure, I find that the most confusing aspect of generics is the fact that you can represent things that have no meaning? For example:
 
 [Sentence]:
-
 Because of erasure, I find that the most confusing aspect of generics is the fact that you can represent things that have no meaning? 
 [Sentence]:
-
 For example:
 
 [Listing]:
@@ -44,8 +41,6 @@ public class ArrayMaker<T> {
 [Paragraph]:
 Even though kind is stored as Class<T>, erasure means that it is actually just being stored as a Class, with no parameter. So, when you do something with it, as in creating an array, Array's method newInstance( ) doesn't actually have the type information that's implied in kind; so it cannot produce the specific result, which must therefore be cast, which produces a warning that you cannot satisfy.
 [Sentence]:
-
 Even though kind is stored as Class<T>, erasure means that it is actually just being stored as a Class, with no parameter. 
 [Sentence]:
-
 So, when you do something with it, as in creating an array, Array's method newInstance( ) doesn't actually have the type information that's implied in kind; so it cannot produce the specific result, which must therefore be cast, which produces a warning that you cannot satisfy.

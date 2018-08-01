@@ -75,7 +75,7 @@ public abstract class TextParser {
         while (matcher.find()) {
             current = matcher.group();
             try {
-                destination.write("[Sentence]:\n\n" + current + "\r\n");
+                destination.write("[Sentence]:\r\n" + current + "\r\n");
             } catch (IOException e) {
                 throw e;
             }
