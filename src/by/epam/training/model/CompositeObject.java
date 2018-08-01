@@ -19,12 +19,10 @@ public class CompositeObject implements IComposite {
         return list.size();
     }
 
-    @Override
     public void add(IComposite compositeObject) {
         list.add(compositeObject);
     }
 
-    @Override
     public void remove(int index) {
         list.remove(index);
     }
@@ -34,10 +32,10 @@ public class CompositeObject implements IComposite {
     }
 
     @Override
-    public String toString() {
+    public String print() {
         StringBuilder innerContent = new StringBuilder();
         for (IComposite compositeObject : list) {
-            innerContent.append(compositeObject.toString());
+            innerContent.append(compositeObject.print());
         }
         return innerContent.toString();
     }

@@ -7,6 +7,7 @@ import org.apache.log4j.*;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class Runner {
@@ -33,11 +34,15 @@ public class Runner {
 
         IComposite wholeText = TextParser.parseToParagraphs(sb.toString());
 
-        LOG.info("elements in the text: " + ((CompositeObject)wholeText).size());
-        for (int i = 0; i < ((CompositeObject)wholeText).size(); i++) {
-            LOG.info(String.format("%2d: %s", i + 1, wholeText.get(i)));
-        }
+        LOG.info(wholeText.print());
 
-        LOG.info(TextParser.getTextInfo(wholeText));
+        LOG.info("\n\n" + TextParser.getTextInfo(wholeText));
+
+        File file1 = new File("output.txt");
+        try (FileWriter fw = new FileWriter(file1)) {
+            fw.write(wholeText.print());
+        } catch(IOException e) {
+            LOG.error("I/O exception: ", e);
+        }
     }
 }

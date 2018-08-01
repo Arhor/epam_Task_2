@@ -10,9 +10,7 @@ package by.epam.training.model;
 
 public interface IComposite {
 
-    void add(IComposite compositeObject);
-
-    void remove(int index);
+    String print();
 
     IComposite get(int index);
 }
