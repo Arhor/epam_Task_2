@@ -44,14 +44,14 @@ public abstract class TextParser {
             current = matcher.group();
             if (current.matches(LISTING)) {
                 try {
-                    destination.write("[Listing]:\r\n" + current + "\r\n");
+                    destination.write("[Listing]: [" + current + "]\r\n");
                 } catch (IOException e) {
                     throw e;
                 }
                 compositeText.add(new Leaf(current));
             } else {
                 try {
-                    destination.write("[Paragraph]:\r\n" + current + "\r\n");
+                    destination.write("[Paragraph]: [" + current + "]\r\n");
                 } catch (IOException e) {
                     throw e;
                 }
@@ -75,11 +75,11 @@ public abstract class TextParser {
         while (matcher.find()) {
             current = matcher.group();
             try {
-                destination.write("[Sentence]:\r\n" + current + "\r\n");
+                destination.write(" [Sentence]: [" + current + "]\r\n");
             } catch (IOException e) {
                 throw e;
             }
-            compositeParagraph.add(parseToWords(current));
+            compositeParagraph.add(parseToWords(current, destination));
         }
         return compositeParagraph;
     }
@@ -91,7 +91,7 @@ public abstract class TextParser {
      * and returns it
      */
 
-    private static IComposite parseToWords(String sentence) {
+    private static IComposite parseToWords(String sentence, FileWriter destination) throws IOException {
         CompositeObject compositeSentence = new CompositeObject();
         Pattern pattern = Pattern.compile(WORD_OR_DELIMITER);
         Matcher matcher = pattern.matcher(sentence);
@@ -99,9 +99,19 @@ public abstract class TextParser {
         while (matcher.find()) {
             current = matcher.group();
             if (!current.matches(WORD)) {
+                try {
+                    destination.write("[Delimiter]: [" + current + "]\r\n");
+                } catch (IOException e) {
+                    throw e;
+                }
                 compositeSentence.add(new Leaf(current));
             } else {
-                compositeSentence.add(parseToChars(current));
+                try {
+                    destination.write("     [Word]: [" + current + "]\r\n");
+                } catch (IOException e) {
+                    throw e;
+                }
+                compositeSentence.add(parseToChars(current, destination));
             }
         }
         return compositeSentence;
@@ -112,11 +122,16 @@ public abstract class TextParser {
      * to separate characters, each of them is added to IComposite-object word
      * as a Leaf-object, then method returns IComposite-object word
      */
-    private static IComposite parseToChars(String word) {
+    private static IComposite parseToChars(String word, FileWriter destination) throws IOException {
         CompositeObject compositeWord = new CompositeObject();
         for (char character : word.toCharArray()) {
-            String content = String.valueOf(character);
-            compositeWord.add(new Leaf(content));
+            String current = String.valueOf(character);
+            try {
+                destination.write("[character]: [" + current + "]\r\n");
+            } catch (IOException e) {
+                throw e;
+            }
+            compositeWord.add(new Leaf(current));
         }
         return compositeWord;
     }
