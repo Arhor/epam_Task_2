@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
 
 public abstract class TextParser {
 
-    private static final String TEXT_LINE = "((.+)(\\s?))|(\\s*)";
+    private static final String TEXT_LINE = "((.+)(\\s?))|(\\s+)";
     private static final String LISTING_START = "(\\\\~)(.*)(\\s?)";
     private static final String LISTING_END = "(\\s*)(.*)(~\\\\)(\\s?)";
     private static final String ONE_LINE_LISTING =
@@ -36,7 +36,8 @@ public abstract class TextParser {
      * then add them to composite-object text (composite paragraphs and leaf
      * listing-blocks) and returns it
      */
-    public static IComposite parseToParagraph(String text, FileWriter dst) throws IOException {
+    public static IComposite parseToParagraph(String text, FileWriter dst)
+            throws IOException {
         CompositeObject compositeText = new CompositeObject();
         Pattern pattern = Pattern.compile(TEXT_LINE);
         Matcher matcher = pattern.matcher(text);
@@ -141,8 +142,8 @@ public abstract class TextParser {
                 paragraph++;
                 for (int j = 0; j < ((CompositeObject)object1).size(); j++) {
                     sentence++;
-                    IComposite object2 = object1.get(j);
-                    for (int k = 0; k < ((CompositeObject)object2).size(); k++) {
+                    CompositeObject object2 = (CompositeObject) object1.get(j);
+                    for (int k = 0; k < object2.size(); k++) {
                         IComposite object3 = object2.get(k);
                         if (object3 instanceof Leaf) {
                             delimiter++;

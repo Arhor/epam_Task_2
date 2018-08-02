@@ -1589,4 +1589,3 @@ The output is:
 [Listing]: [\~ some listing ~\\~ some listing ~\
 ]
 [Listing]: [\~ some listing ~\]
-[Paragraph]: []

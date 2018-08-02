@@ -43,7 +43,7 @@ public class Runner {
 
         //LOG.info(wholeText.print());
 
-        //LOG.info("\n\n" + TextParser.getTextInfo(wholeText));
+        LOG.info("\n\n" + TextParser.getTextInfo(wholeText));
 
         StringBuilder parsed = new StringBuilder();
         try (FileReader fileReader = new FileReader(file1)) {
