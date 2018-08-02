@@ -1,7 +1,7 @@
 /*
  * class: TextParser
  *
- * version: 1.0 26 Jul 2018
+ * version: 2.0 01 Aug 2018
  *
  * author: Maxim Burishinets
  */

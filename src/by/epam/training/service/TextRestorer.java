@@ -1,5 +1,9 @@
 /*
+ * class: TextRestorer
  *
+ * version: 1.0 02 Aug 2018
+ *
+ * author: Maxim Burishinets
  */
 
 package by.epam.training.service;
