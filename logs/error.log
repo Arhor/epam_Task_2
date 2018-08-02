@@ -1,0 +1,4 @@
+
+14:08:55,101 ERROR main [Runner]:main:34 - I/O exception
+java.io.IOException
+	at by.epam.training.runner.Runner.main(Runner.java:32)
