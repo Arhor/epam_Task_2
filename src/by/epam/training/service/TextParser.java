@@ -127,41 +127,33 @@ public abstract class TextParser {
     }
 
     // returns string that contains information about parsed text
-    public static String getTextInfo(IComposite wholeText) {
-        int listing = 0;
-        int paragraph = 0;
-        int sentence = 0;
-        int word = 0;
-        int delimiter = 0;
-        int letter = 0;
-        for (int i = 0; i < ((CompositeObject)wholeText).size(); i++) {
-            IComposite object1 = wholeText.get(i);
-            if (object1 instanceof Leaf) {
-                listing++;
+    public static String getParsedText(IComposite wholeText) {
+        StringBuilder sb = new StringBuilder();
+    	for (int i = 0; i < ((CompositeObject)wholeText).size(); i++) {
+            IComposite levelOne = wholeText.get(i);
+            if (levelOne instanceof Leaf) {
+                sb.append("[Listing]: [" + levelOne.print() + "]\r\n");
             } else {
-                paragraph++;
-                for (int j = 0; j < ((CompositeObject)object1).size(); j++) {
-                    sentence++;
-                    CompositeObject object2 = (CompositeObject) object1.get(j);
-                    for (int k = 0; k < object2.size(); k++) {
-                        IComposite object3 = object2.get(k);
-                        if (object3 instanceof Leaf) {
-                            delimiter++;
+                sb.append("[Paragraph]: [" + levelOne.print() + "]\r\n");
+                for (int j = 0; j < ((CompositeObject)levelOne).size(); j++) {
+                    CompositeObject levelTwo = (CompositeObject)levelOne.get(j);
+                    sb.append(" [Sentence]: [" + levelTwo.print() + "]\r\n");
+                    for (int k = 0; k < levelTwo.size(); k++) {
+                        IComposite levelThree = levelTwo.get(k);
+                        if (levelThree instanceof Leaf) {
+                            sb.append("[Delimiter]: [" + levelThree.print() + "]\r\n");
                         } else {
-                            word++;
-                            letter += ((CompositeObject)object3).size();
+                        	sb.append("     [Word]: [" + levelThree.print() + "]\r\n");
+                            for (int z = 0; z < ((CompositeObject)levelThree).size(); z++) {
+                            	IComposite levelFour = levelThree.get(z);
+                            	sb.append("[character]: [" + levelFour.print() + "]\r\n");
+                            }
                         }
                     }
                 }
             }
         }
-        return String.format("listing: %d%n" +
-                "paragraph: %d%n" +
-                "sentence: %d%n" +
-                "word: %d%n" +
-                "delimiter: %d%n" +
-                "letter: %d%n",
-                listing, paragraph, sentence, word, delimiter, letter);
+        return sb.toString();
     }
 
     /*private static final String PARAGRAPH_OR_LISTING =

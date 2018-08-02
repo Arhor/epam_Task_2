@@ -35,7 +35,7 @@ public class Runner {
         }
 
         //LOG.info(wholeText.print());
-        //LOG.info("\n\n" + TextParser.getTextInfo(wholeText));
+        LOG.info(TextParser.getParsedText(wholeText)); // returns totally parsed text as String
         
         TextRestorer textRestorer = new TextRestorer();
         
