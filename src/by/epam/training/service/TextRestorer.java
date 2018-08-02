@@ -8,8 +8,6 @@
 
 package by.epam.training.service;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,16 +21,16 @@ public class TextRestorer {
     private static final String LISTING_END =
             "(\\s*)(.*)~\\\\((\\s*)\\])?(\\s*)";
 
-    public static void restore(String parsedText, FileWriter dst)
-            throws IOException {
+    public static String restore(String parsedText) {
         Pattern pattern = Pattern.compile(TEXT_LINE);
         Matcher matcher = pattern.matcher(parsedText);
+        StringBuilder sb = new StringBuilder();
         boolean isListing = false;
         String current;
         while (matcher.find()) {
             current = matcher.group();
             if (current.matches(PARAGRAPH)) {
-                dst.write(current.replaceAll(
+                sb.append(current.replaceAll(
                         "(\\s*\\[Paragraph\\]: \\[)|(]\\s)", ""));
                 continue;
             } else if (current.matches(LISTING_START)) {
@@ -42,11 +40,12 @@ public class TextRestorer {
             }
             if (current.matches(LISTING_END) && isListing) {
                 isListing = false;
-                dst.write(current.replaceAll(
+                sb.append(current.replaceAll(
                         "(~\\\\)(\\])(\\s)", "~\\\\"));
             } else if (isListing) {
-                dst.write(current);
+                sb.append(current);
             }
         }
+        return sb.toString();
     }
 }

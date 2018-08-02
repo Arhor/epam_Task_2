@@ -2,3 +2,12 @@
 14:08:55,101 ERROR main [Runner]:main:34 - I/O exception
 java.io.IOException
 	at by.epam.training.runner.Runner.main(Runner.java:32)
+
+23:44:29,771 ERROR main [Runner]:main:34 - I/O exception: 
+java.io.FileNotFoundException: text.txt (Не удается найти указанный файл)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(Unknown Source)
+	at java.io.FileInputStream.<init>(Unknown Source)
+	at java.io.FileReader.<init>(Unknown Source)
+	at by.epam.training.service.util.InputFileReader.getString(InputFileReader.java:12)
+	at by.epam.training.runner.Runner.main(Runner.java:32)
