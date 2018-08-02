@@ -20,10 +20,11 @@ import java.util.regex.Pattern;
 
 public abstract class TextParser {
 
-    private static final String PARAGRAPH_OR_LISTING =
-            "((\\s*)(\\\\~)([\\w\\W]+)(~\\\\)(\\s+))|((\\s*)(.+)(\\s*))";
-    private static final String LISTING =
-            "(\\s*)(\\\\~)(\\w|\\W)+(~\\\\)(\\s+)";
+    private static final String TEXT_LINE = "((.+)(\\s?))|(\\s*)";
+    private static final String LISTING_START = "(\\\\~)(.*)(\\s?)";
+    private static final String LISTING_END = "(\\s*)(.*)(~\\\\)(\\s?)";
+    private static final String ONE_LINE_LISTING =
+            "(\\s*)(\\\\~)(.+)(~\\\\)(\\s?)";
     private static final String SENTENCE = "([^.!?]+)(\\.|!|\\?|\\s)*";
     private static final String WORD_OR_DELIMITER =
             "([A-Za-z0-9]+)|([^A-Za-z0-9])";
@@ -35,27 +36,30 @@ public abstract class TextParser {
      * then add them to composite-object text (composite paragraphs and leaf
      * listing-blocks) and returns it
      */
-    public static IComposite parseToParagraphs(String text, FileWriter destination) throws IOException {
+    public static IComposite parseToParagraph(String text, FileWriter dst) throws IOException {
         CompositeObject compositeText = new CompositeObject();
-        Pattern pattern = Pattern.compile(PARAGRAPH_OR_LISTING);
+        Pattern pattern = Pattern.compile(TEXT_LINE);
         Matcher matcher = pattern.matcher(text);
+        StringBuilder sb = new StringBuilder();
         String current = "";
+        boolean isListing = false;
         while (matcher.find()) {
             current = matcher.group();
-            if (current.matches(LISTING)) {
-                try {
-                    destination.write("[Listing]: [" + current + "]\r\n");
-                } catch (IOException e) {
-                    throw e;
-                }
-                compositeText.add(new Leaf(current));
-            } else {
-                try {
-                    destination.write("[Paragraph]: [" + current + "]\r\n");
-                } catch (IOException e) {
-                    throw e;
-                }
-                compositeText.add(parseToSentences(current, destination));
+            sb.append(current);
+            if (!current.matches(LISTING_START) && !isListing
+                    && !current.matches(ONE_LINE_LISTING)) {
+                dst.write("[Paragraph]: [" + current + "]\r\n");
+                compositeText.add(parseToSentence(current, dst));
+                sb = new StringBuilder();
+            } else if (current.matches(LISTING_START) && !isListing
+                    && !current.matches(ONE_LINE_LISTING)) {
+                isListing = true;
+            } else if ((current.matches(LISTING_END) && isListing)
+                    || current.matches(ONE_LINE_LISTING)) {
+                isListing = false;
+                dst.write("[Listing]: [" + sb.toString() + "]\r\n");
+                compositeText.add(new Leaf(sb.toString()));
+                sb = new StringBuilder();
             }
         }
         return compositeText;
@@ -66,20 +70,16 @@ public abstract class TextParser {
      * to separate sentences, adds them as composite-objects to composite-
      * object paragraph and returns it
      */
-
-    private static IComposite parseToSentences(String paragraph, FileWriter destination) throws IOException {
+    private static IComposite parseToSentence(String paragraph, FileWriter dst)
+            throws IOException {
         CompositeObject compositeParagraph = new CompositeObject();
         Pattern pattern = Pattern.compile(SENTENCE);
         Matcher matcher = pattern.matcher(paragraph);
         String current = "";
         while (matcher.find()) {
             current = matcher.group();
-            try {
-                destination.write(" [Sentence]: [" + current + "]\r\n");
-            } catch (IOException e) {
-                throw e;
-            }
-            compositeParagraph.add(parseToWords(current, destination));
+            dst.write(" [Sentence]: [" + current + "]\r\n");
+            compositeParagraph.add(parseToWord(current, dst));
         }
         return compositeParagraph;
     }
@@ -90,8 +90,8 @@ public abstract class TextParser {
      * objects and delimiters as leaf-objects to composite-object sentence
      * and returns it
      */
-
-    private static IComposite parseToWords(String sentence, FileWriter destination) throws IOException {
+    private static IComposite parseToWord(String sentence, FileWriter dst)
+            throws IOException {
         CompositeObject compositeSentence = new CompositeObject();
         Pattern pattern = Pattern.compile(WORD_OR_DELIMITER);
         Matcher matcher = pattern.matcher(sentence);
@@ -99,19 +99,11 @@ public abstract class TextParser {
         while (matcher.find()) {
             current = matcher.group();
             if (!current.matches(WORD)) {
-                try {
-                    destination.write("[Delimiter]: [" + current + "]\r\n");
-                } catch (IOException e) {
-                    throw e;
-                }
+                dst.write("[Delimiter]: [" + current + "]\r\n");
                 compositeSentence.add(new Leaf(current));
             } else {
-                try {
-                    destination.write("     [Word]: [" + current + "]\r\n");
-                } catch (IOException e) {
-                    throw e;
-                }
-                compositeSentence.add(parseToChars(current, destination));
+                dst.write("     [Word]: [" + current + "]\r\n");
+                compositeSentence.add(parseToChar(current, dst));
             }
         }
         return compositeSentence;
@@ -122,15 +114,12 @@ public abstract class TextParser {
      * to separate characters, each of them is added to IComposite-object word
      * as a Leaf-object, then method returns IComposite-object word
      */
-    private static IComposite parseToChars(String word, FileWriter destination) throws IOException {
+    private static IComposite parseToChar(String word, FileWriter dst)
+            throws IOException {
         CompositeObject compositeWord = new CompositeObject();
         for (char character : word.toCharArray()) {
             String current = String.valueOf(character);
-            try {
-                destination.write("[character]: [" + current + "]\r\n");
-            } catch (IOException e) {
-                throw e;
-            }
+            dst.write("[character]: [" + current + "]\r\n");
             compositeWord.add(new Leaf(current));
         }
         return compositeWord;
@@ -174,30 +163,10 @@ public abstract class TextParser {
                 listing, paragraph, sentence, word, delimiter, letter);
     }
 
-    //text method for REGEX
-    /*public static void getLines(String text) {
-        Pattern pattern = Pattern.compile(TEXT_LINE);
-        Matcher matcher = pattern.matcher(text);
-        String currentLine = new String();
-        StringBuilder sb = new StringBuilder();
-        int counter = 1;
-        boolean isListing = false;
-        while (matcher.find()) {
-            currentLine = matcher.group();
-            if (currentLine.matches(LISTING_START) && !isListing) {
-                isListing = true;
-                sb.append(currentLine);
-                System.out.println("LISTING STARTED!!!");
-                continue;
-            } else if (isListing && currentLine.matches(LISTING_END)) {
-                isListing = false;
-            }
-            sb.append(currentLine);
-            System.out.printf("%2d: %s%n", counter++, sb.toString());
-            sb = new StringBuilder();
-        }
-    }*/
-
+    /*private static final String PARAGRAPH_OR_LISTING =
+            "((\\\\~)([\\w\\W]+)(~\\\\)(\\s+))|((\\s*)(.+)(\\s?))";*/
+    /*private static final String LISTING =
+            "(\\\\~)(\\w|\\W)+(~\\\\)(\\s+)";*/
     /*public static IComposite parseToParagraphs(String text) {
         CompositeObject compositeText = new CompositeObject();
         StringBuilder sb = new StringBuilder();
@@ -270,5 +239,32 @@ public abstract class TextParser {
             }
         }
         return compositeSentence;
+    }*/
+
+    /*public static IComposite parseToParagraph(String text, FileWriter dst)
+            throws IOException {
+        CompositeObject compositeText = new CompositeObject();
+        Pattern pattern = Pattern.compile(PARAGRAPH_OR_LISTING);
+        Matcher matcher = pattern.matcher(text);
+        String current = "";
+        while (matcher.find()) {
+            current = matcher.group();
+            if (current.matches(LISTING)) {
+                try {
+                    dst.write("[Listing]: [" + current + "]\r\n");
+                } catch (IOException e) {
+                    throw e;
+                }
+                compositeText.add(new Leaf(current));
+            } else {
+                try {
+                    dst.write("[Paragraph]: [" + current + "]\r\n");
+                } catch (IOException e) {
+                    throw e;
+                }
+                compositeText.add(parseToSentence(current, dst));
+            }
+        }
+        return compositeText;
     }*/
 }
