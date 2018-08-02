@@ -21,7 +21,7 @@ public class TextRestorer {
     private static final String LISTING_END =
             "(\\s*)(.*)~\\\\((\\s*)\\])?(\\s*)";
 
-    public static String restore(String parsedText) {
+    public String restore(String parsedText) {
         Pattern pattern = Pattern.compile(TEXT_LINE);
         Matcher matcher = pattern.matcher(parsedText);
         StringBuilder sb = new StringBuilder();

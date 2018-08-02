@@ -27,8 +27,8 @@ public class Runner {
     	String text = ifr.readText("input.txt");
     	
         IComposite wholeText = null;
-        File file1 = new File("parsed_text.txt");
-        try (FileWriter fw = new FileWriter(file1)) {
+        File file = new File("parsed_text.txt");
+        try (FileWriter fw = new FileWriter(file)) {
             wholeText = TextParser.parseToParagraph(text, fw);
         } catch(IOException e) {
             LOG.error("I/O exception: ", e);
