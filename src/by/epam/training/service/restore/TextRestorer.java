@@ -6,7 +6,7 @@
  * author: Maxim Burishinets
  */
 
-package by.epam.training.service;
+package by.epam.training.service.restore;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

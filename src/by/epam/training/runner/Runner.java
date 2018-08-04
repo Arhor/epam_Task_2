@@ -1,16 +1,14 @@
 package by.epam.training.runner;
 
 import by.epam.training.model.*;
-
-import by.epam.training.service.TextParser;
-import by.epam.training.service.TextRestorer;
+import by.epam.training.service.extract.TextExtractor;
+import by.epam.training.service.parse.*;
+import by.epam.training.service.restore.TextRestorer;
 import by.epam.training.service.util.InputFileReader;
 import by.epam.training.service.util.OutputFileWriter;
 
 import org.apache.log4j.*;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class Runner {
@@ -23,27 +21,26 @@ public class Runner {
 
     	InputFileReader ifr = new InputFileReader();
     	OutputFileWriter ofw = new OutputFileWriter();
-    	
     	String text = ifr.readText("input.txt");
     	
-        IComposite wholeText = null;
-        File file = new File("parsed_text.txt");
-        try (FileWriter fw = new FileWriter(file)) {
-            wholeText = TextParser.parseToParagraph(text, fw);
-        } catch(IOException e) {
-            LOG.error("I/O exception: ", e);
-        }
-
-        //LOG.info(wholeText.print());
-        LOG.info(TextParser.getParsedText(wholeText)); // returns totally parsed text as String
+    	Parser textParser = new TextParser();
+    	Parser paragraphParser = new ParagraphParser();
+    	Parser sentenceParser = new SentenceParser();
+    	Parser wordParser = new WordParser();
+    	
+    	textParser.setSuccessor(paragraphParser);
+    	paragraphParser.setSuccessor(sentenceParser);
+    	sentenceParser.setSuccessor(wordParser);
+    	
+        IComposite wholeText = textParser.parse(text);
+        LOG.info(wholeText.print());
         
+        TextExtractor extractor = new TextExtractor();
+        
+        ofw.writeText("parsed_text.txt", extractor.ExtractText(wholeText));
         TextRestorer textRestorer = new TextRestorer();
-        
-        String parsed = ifr.readText("parsed_text.txt");
-        String restored = textRestorer.restore(parsed);
-        
+        String restored = textRestorer.restore(ifr.readText("parsed_text.txt"));
         ofw.writeText("output.txt", restored);
-        
         String result = ifr.readText("output.txt");
         LOG.info("Original text equals restored text: " + text.equals(result));
     }
