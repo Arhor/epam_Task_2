@@ -27,7 +27,11 @@ public class TextParser extends Parser {
             sb.append(current);
             if (!current.matches(LISTING_START) && !isListing
                     && !current.matches(ONE_LINE_LISTING)) {
-                compositeText.add(successor.parse(current));
+            	if (successor != null) {
+            		compositeText.add(successor.parse(current));
+            	} else {
+            		compositeText.add(new Leaf(current));
+            	}
                 sb = new StringBuilder();
             } else if (current.matches(LISTING_START) && !isListing
                     && !current.matches(ONE_LINE_LISTING)) {

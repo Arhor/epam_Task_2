@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 import by.epam.training.model.CompositeObject;
 import by.epam.training.model.IComposite;
+import by.epam.training.model.Leaf;
 
 public class ParagraphParser extends Parser {
 	
@@ -17,7 +18,11 @@ public class ParagraphParser extends Parser {
         String current = "";
         while (matcher.find()) {
             current = matcher.group();
-            compositeParagraph.add(successor.parse(current));
+            if (successor != null) {
+            	compositeParagraph.add(successor.parse(current));
+            } else {
+            	compositeParagraph.add(new Leaf(current));
+            }
         }
         return compositeParagraph;
 	}

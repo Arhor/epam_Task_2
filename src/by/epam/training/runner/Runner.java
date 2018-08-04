@@ -33,7 +33,8 @@ public class Runner {
         sentenceParser.setSuccessor(wordParser);
 
         IComposite wholeText = textParser.parse(text);
-        LOG.info(wholeText.print());
+        
+//        LOG.info(wholeText.print());
         
         TextExtractor extractor = new TextExtractor();
         

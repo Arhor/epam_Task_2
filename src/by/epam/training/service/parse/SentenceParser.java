@@ -20,7 +20,7 @@ public class SentenceParser extends Parser {
         String current = "";
         while (matcher.find()) {
             current = matcher.group();
-            if (!current.matches(WORD)) {
+            if (!current.matches(WORD) || successor == null) {
                 compositeSentence.add(new Leaf(current));
             } else {
                 compositeSentence.add(successor.parse(current));
