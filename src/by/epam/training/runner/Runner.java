@@ -19,19 +19,19 @@ public class Runner {
 
         // TODO: find longest palindrome represented in the text
 
-    	InputFileReader ifr = new InputFileReader();
-    	OutputFileWriter ofw = new OutputFileWriter();
-    	String text = ifr.readText("input.txt");
-    	
-    	Parser textParser = new TextParser();
-    	Parser paragraphParser = new ParagraphParser();
-    	Parser sentenceParser = new SentenceParser();
-    	Parser wordParser = new WordParser();
-    	
-    	textParser.setSuccessor(paragraphParser);
-    	paragraphParser.setSuccessor(sentenceParser);
-    	sentenceParser.setSuccessor(wordParser);
-    	
+        InputFileReader ifr = new InputFileReader();
+        OutputFileWriter ofw = new OutputFileWriter();
+        String text = ifr.readText("input.txt");
+
+        Parser textParser = new TextParser();
+        Parser paragraphParser = new ParagraphParser();
+        Parser sentenceParser = new SentenceParser();
+        Parser wordParser = new WordParser();
+
+        textParser.setSuccessor(paragraphParser);
+        paragraphParser.setSuccessor(sentenceParser);
+        sentenceParser.setSuccessor(wordParser);
+
         IComposite wholeText = textParser.parse(text);
         LOG.info(wholeText.print());
         
