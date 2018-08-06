@@ -2,6 +2,7 @@ package by.epam.training.runner;
 
 import by.epam.training.model.*;
 import by.epam.training.service.extract.TextExtractor;
+import by.epam.training.service.palindrome.Finder;
 import by.epam.training.service.parse.*;
 import by.epam.training.service.restore.TextRestorer;
 import by.epam.training.service.util.InputFileReader;
@@ -44,5 +45,8 @@ public class Runner {
         ofw.writeText("output.txt", restored);
         String result = ifr.readText("output.txt");
         LOG.info("Original text equals restored text: " + text.equals(result));
+        
+        Finder finder = new Finder();
+        LOG.info(finder.findLongestPalindrome("said to be the Finnish word “saippuakivikauppias” which means soap stone vendor"));
     }
 }

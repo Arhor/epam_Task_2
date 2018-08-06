@@ -1,9 +1,5 @@
 /*
  * class: InputFileReader
- * 
- * version: 1.0 02 Aug 2018
- * 
- * author: Maxim Burishinets
  */
 
 package by.epam.training.service.util;
@@ -12,6 +8,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * Class InputFileReader provides easy interface for reading whole text from
+ * file
+ * 
+ * @version    1.0 02 Aug 2018
+ * @Author     Maxim Busrishinets
+ */
 public class InputFileReader {
 
 	public String readText(String path) throws IOException {
