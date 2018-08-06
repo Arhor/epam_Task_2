@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class CompositeObject implements IComposite {
 
-	/** List of Leafs and Composite objects in current Composite object */
+    /** List of Leafs and Composite objects in current Composite object */
     private List<IComposite> list = new ArrayList<>();
 
     public int size() {
