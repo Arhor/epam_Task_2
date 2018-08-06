@@ -12,8 +12,8 @@ import java.io.IOException;
  * Class InputFileReader provides easy interface for reading whole text from
  * file
  * 
- * @version    1.0 02 Aug 2018
- * @Author     Maxim Busrishinets
+ * @version 1.0 02 Aug 2018
+ * @Author  Maxim Busrishinets
  */
 public class InputFileReader {
 

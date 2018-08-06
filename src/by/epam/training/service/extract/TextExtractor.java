@@ -1,9 +1,18 @@
+/*
+ * class: TextExtractor
+ */
+
 package by.epam.training.service.extract;
 
-import by.epam.training.model.CompositeObject;
-import by.epam.training.model.IComposite;
-import by.epam.training.model.Leaf;
+import by.epam.training.model.*;
 
+/**
+ * Class TextExtractor serves for extracting text in parsed form from
+ * composite-object
+ * 
+ * @version 1.0 01 Aug 2018
+ * @author  Maxim Burishinets
+ */
 public class TextExtractor {
 
 	public String ExtractText(IComposite wholeText) {

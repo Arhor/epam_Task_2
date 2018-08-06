@@ -1,3 +1,7 @@
+/*
+ * class: TextParser
+ */
+
 package by.epam.training.service.parse;
 
 import java.util.regex.Matcher;
@@ -7,6 +11,13 @@ import by.epam.training.model.CompositeObject;
 import by.epam.training.model.IComposite;
 import by.epam.training.model.Leaf;
 
+/**
+ * Class TextParser serves for parsing whole text to separate
+ * paragraphs and code-listings
+ * 
+ * @version 1.0 02 Aug 2018
+ * @author  Maxim Burishinets
+ */
 public class TextParser extends Parser {
 	
 	private static final String TEXT_LINE = "((.+)(\\s?))|(\\s+)";

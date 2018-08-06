@@ -1,3 +1,7 @@
+/*
+ * class: SentenceParser
+ */
+
 package by.epam.training.service.parse;
 
 import java.util.regex.Matcher;
@@ -7,6 +11,13 @@ import by.epam.training.model.CompositeObject;
 import by.epam.training.model.IComposite;
 import by.epam.training.model.Leaf;
 
+/**
+ * Class SentenceParser serves for parsing text line to separate
+ * words and delimiters
+ * 
+ * @version 1.0 02 Aug 2018
+ * @author  Maxim Burishinets
+ */
 public class SentenceParser extends Parser {
 	
 	private static final String WORD_OR_DELIMITER =

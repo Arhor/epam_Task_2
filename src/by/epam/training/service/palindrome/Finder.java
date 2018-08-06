@@ -13,7 +13,7 @@ package by.epam.training.service.palindrome;
  * even and odd length
  * 
  * @version    1.0 04 Aug 2018
- * @author     Maxim Busrishinets
+ * @author     Maxim Burishinets
  */
 public class Finder {
 	

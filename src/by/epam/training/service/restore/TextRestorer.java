@@ -1,9 +1,5 @@
 /*
  * class: TextRestorer
- *
- * version: 1.0 02 Aug 2018
- *
- * author: Maxim Burishinets
  */
 
 package by.epam.training.service.restore;
@@ -11,6 +7,12 @@ package by.epam.training.service.restore;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Class TextRestorer helps to restore previously parsed text
+ * 
+ * @version 1.0 02 Aug 2018
+ * @author  Maxim Burishinets
+ */
 public class TextRestorer {
 
     private static final String TEXT_LINE = "(\\s*)(.+)(\\s?)";
