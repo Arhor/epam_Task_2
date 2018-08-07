@@ -47,8 +47,8 @@ public class Runner {
                 sentenceParser.setSuccessor(wordParser);
 
                 process("Parsing text");
-        	CompositeObject wholeText = (CompositeObject)textParser.parse(text);
-        	LOG.info("success\n");
+                CompositeObject wholeText = (CompositeObject)textParser.parse(text);
+                LOG.info("success\n");
 
                 process("Extracting parsed text");
                 TextExtractor extractor = new TextExtractor();
@@ -104,7 +104,7 @@ public class Runner {
     static void process(String process) throws InterruptedException {
         LOG.info(String.format("%23s", process));
         for (int i = 0; i < 10; i++) {
-    	    LOG.info(".");
+            LOG.info(".");
             Thread.sleep(50);
         }
     }
