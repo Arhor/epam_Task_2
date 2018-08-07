@@ -46,16 +46,16 @@ public class Runner {
                 paragraphParser.setSuccessor(sentenceParser);
                 sentenceParser.setSuccessor(wordParser);
         		
-        		process("parsing text");
+        		process("Parsing text");
         		CompositeObject wholeText = (CompositeObject)textParser.parse(text);
         		LOG.info("success\n");
         		
-        		process("extracting parsed text");
+        		process("Extracting parsed text");
             	TextExtractor extractor = new TextExtractor();
             	ofw.writeText("parsed_text.txt", extractor.ExtractText(wholeText));
             	LOG.info("success\n");
             	
-            	process("resoring text");
+            	process("Resoring text");
             	TextRestorer textRestorer = new TextRestorer();
             	String restored = textRestorer.restore(ifr.readText("parsed_text.txt")); 
             	ofw.writeText("output.txt", restored);
@@ -63,9 +63,9 @@ public class Runner {
             	
             	String result = ifr.readText("output.txt");
             	LOG.info("\nOriginal text equals restored text: " + text.equals(result) + "\n");
-            	LOG.info("\noriginal text: input.txt\n"
-            			+ "  parsed text: parsed_text.txt\n"
-            			+ "restored text: output.txt\n");
+            	LOG.info("\nOriginal text: input.txt\n"
+            			+ "  Parsed text: parsed_text.txt\n"
+            			+ "Restored text: output.txt\n");
             } catch (IOException e) {
             	LOG.info("I/O exception is occured");
             	LOG.error("I/O exception", e);
@@ -76,7 +76,7 @@ public class Runner {
             	return;
             }
         } else {
-        	LOG.info("there is nothing to parse\n");
+        	LOG.info("There is nothing to parse\n");
         }
 
         LOG.info("\n");
@@ -87,11 +87,11 @@ public class Runner {
         	text2 = ifr.readText("palindrome.txt");
         	LOG.info("success\n");
         	
-        	process("looking for palindromes");
+        	process("Looking for palindromes");
         	Finder finder = new Finder();
         	String palindrome = finder.findLongestPalindrome(text2);
         	LOG.info("success\n");
-        	LOG.info("longest palindrome: [" + palindrome + "]");
+        	LOG.info("Longest palindrome: [" + palindrome + "]");
         } catch (IOException e) {
         	LOG.info("I/O exception occured");
         	LOG.error("I/O exception", e);
