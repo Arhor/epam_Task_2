@@ -14,4 +14,6 @@ package by.epam.training.model;
 public interface IComposite {
 
     String print();
+    
+    IComposite get(int i);
 }

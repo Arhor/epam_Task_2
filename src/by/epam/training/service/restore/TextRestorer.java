@@ -23,6 +23,13 @@ public class TextRestorer {
     private static final String LISTING_END =
             "(\\s*)(.*)~\\\\((\\s*)\\])?(\\s*)";
 
+    /**
+     * The method runs through the parsed text line by line and takes only
+     * [paragraph] and [listing] blocks
+     * 
+     * @param parsedText a String extracted from Composite object
+     * @return restored text in original form
+     */
     public String restore(String parsedText) {
         Pattern pattern = Pattern.compile(TEXT_LINE);
         Matcher matcher = pattern.matcher(parsedText);

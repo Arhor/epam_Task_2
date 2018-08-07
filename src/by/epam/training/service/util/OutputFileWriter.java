@@ -16,6 +16,12 @@ import java.io.IOException;
  */
 public class OutputFileWriter {
 
+	/**
+	 * Writes given String to the file
+	 * 
+	 * @param path a String that represents path to the file to write to
+	 * @param source a String of text that will be written to the file
+	 */
 	public void writeText(String path, String source) throws IOException {
 		File file = new File(path);
         try (FileWriter fileWriter = new FileWriter(file)) {

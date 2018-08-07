@@ -31,6 +31,7 @@ public class CompositeObject implements IComposite {
         list.remove(index);
     }
 
+    @Override
     public IComposite get(int index) {
         return list.get(index);
     }

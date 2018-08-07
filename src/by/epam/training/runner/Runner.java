@@ -16,37 +16,96 @@ public class Runner {
 
     private static final Logger LOG = Logger.getLogger(Runner.class);
 
-    public static void main(String[] args) throws IOException {
-
-        // TODO: find longest palindrome represented in the text
-
+    public static void main(String[] args) {
         InputFileReader ifr = new InputFileReader();
         OutputFileWriter ofw = new OutputFileWriter();
-        String text = ifr.readText("input.txt");
+        
+        String text = "";
+        try {
+        	process("Reading input.txt file");
+        	text = ifr.readText("input.txt");
+        	LOG.info("success\n");
+        } catch (IOException e) {
+        	LOG.info("I/O exception is occured");
+        	LOG.error("I/O exception", e);
+        	return;
+        } catch (InterruptedException e) {
+        	LOG.info("Exception in the main thread is occured");
+        	LOG.error("Interrupted exception", e);
+        	return;
+        }
+        
+        if (text.length() > 0) {
+        	try {
+        		Parser textParser = new TextParser();
+                Parser paragraphParser = new ParagraphParser();
+                Parser sentenceParser = new SentenceParser();
+                Parser wordParser = new WordParser();
+                
+                textParser.setSuccessor(paragraphParser);
+                paragraphParser.setSuccessor(sentenceParser);
+                sentenceParser.setSuccessor(wordParser);
+        		
+        		process("parsing text");
+        		CompositeObject wholeText = (CompositeObject)textParser.parse(text);
+        		LOG.info("success\n");
+        		
+        		process("extracting parsed text");
+            	TextExtractor extractor = new TextExtractor();
+            	ofw.writeText("parsed_text.txt", extractor.ExtractText(wholeText));
+            	LOG.info("success\n");
+            	
+            	process("resoring text");
+            	TextRestorer textRestorer = new TextRestorer();
+            	String restored = textRestorer.restore(ifr.readText("parsed_text.txt")); 
+            	ofw.writeText("output.txt", restored);
+            	LOG.info("success\n");
+            	
+            	String result = ifr.readText("output.txt");
+            	LOG.info("\nOriginal text equals restored text: " + text.equals(result) + "\n");
+            	LOG.info("\noriginal text: input.txt\n"
+            			+ "  parsed text: parsed_text.txt\n"
+            			+ "restored text: output.txt\n");
+            } catch (IOException e) {
+            	LOG.info("I/O exception is occured");
+            	LOG.error("I/O exception", e);
+            	return;
+            } catch (InterruptedException e) {
+            	LOG.info("Exception in the main thread is occured");
+            	LOG.error("Interrupted exception", e);
+            	return;
+            }
+        } else {
+        	LOG.info("there is nothing to parse\n");
+        }
 
-        Parser textParser = new TextParser();
-        Parser paragraphParser = new ParagraphParser();
-        Parser sentenceParser = new SentenceParser();
-        Parser wordParser = new WordParser();
-
-        textParser.setSuccessor(paragraphParser);
-        paragraphParser.setSuccessor(sentenceParser);
-        sentenceParser.setSuccessor(wordParser);
-
-        IComposite wholeText = textParser.parse(text);
+        LOG.info("\n");
         
-//        LOG.info(wholeText.print());
-        
-        TextExtractor extractor = new TextExtractor();
-        
-        ofw.writeText("parsed_text.txt", extractor.ExtractText(wholeText));
-        TextRestorer textRestorer = new TextRestorer();
-        String restored = textRestorer.restore(ifr.readText("parsed_text.txt"));
-        ofw.writeText("output.txt", restored);
-        String result = ifr.readText("output.txt");
-        LOG.info("Original text equals restored text: " + text.equals(result));
-        
-        Finder finder = new Finder();
-        LOG.info(finder.findLongestPalindrome("said to be the Finnish word “saippuakivikauppias” which means soap stone vendor"));
+        String text2 = "";
+        try {
+        	process("Reading palindrome.txt");
+        	text2 = ifr.readText("palindrome.txt");
+        	LOG.info("success\n");
+        	
+        	process("looking for palindromes");
+        	Finder finder = new Finder();
+        	String palindrome = finder.findLongestPalindrome(text2);
+        	LOG.info("success\n");
+        	LOG.info("longest palindrome: [" + palindrome + "]");
+        } catch (IOException e) {
+        	LOG.info("I/O exception occured");
+        	LOG.error("I/O exception", e);
+        } catch (InterruptedException e) {
+        	LOG.info("Exception in the main thread is occured");
+        	LOG.error("Interrupted exception", e);
+        }
+    }
+    
+    static void process(String process) throws InterruptedException {
+    	LOG.info(String.format("%23s", process));
+    	for (int i = 0; i < 10; i++) {
+    		LOG.info(".");
+    		Thread.sleep(50);
+    	}
     }
 }

@@ -24,6 +24,12 @@ public class SentenceParser extends Parser {
             "([A-Za-z0-9]+)|([^A-Za-z0-9])";
     private static final String WORD = "[A-Za-z0-9]+";
 
+    /**
+     * The method looks for matches WORD_OR_DELIMITER pattern in the given line
+     * and if it matches passes to successor's 'parse' method, then it's added
+     * to Composite object as another Composite object, else it's added as a
+     * Leaf object (represents delimiter). If successor is not set - it is added as Leaf.
+     */
 	public IComposite parse(String sentence) {
 		CompositeObject compositeSentence = new CompositeObject();
         Pattern pattern = Pattern.compile(WORD_OR_DELIMITER);

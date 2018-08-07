@@ -21,6 +21,12 @@ public class ParagraphParser extends Parser {
 	
 	private static final String SENTENCE = "([^.!?]+)(\\.|!|\\?|\\s)*";
 	
+	/**
+	 * The method looks for matches SENTENCE pattern in the given line
+	 * and passes them to successor's method 'parse', then add them to
+	 * Composite object as another Composite objects. If successor is not
+	 * set - sentence is added as a Leaf object.
+	 */
 	public IComposite parse(String paragraph) {
 		CompositeObject compositeParagraph = new CompositeObject();
         Pattern pattern = Pattern.compile(SENTENCE);

@@ -15,9 +15,15 @@ import by.epam.training.model.*;
  */
 public class TextExtractor {
 
-	public String ExtractText(IComposite wholeText) {
+	/**
+	 * Extracts text from a Composite object.
+
+	 * @param wholeText Composite object that represents parsed text in a tree structure
+	 * @return String of text in parsed form
+	 */
+	public String ExtractText(CompositeObject wholeText) {
         StringBuilder sb = new StringBuilder();
-    	for (int i = 0; i < ((CompositeObject)wholeText).size(); i++) {
+    	for (int i = 0; i < wholeText.size(); i++) {
             IComposite levelOne = wholeText.get(i);
             if (levelOne instanceof Leaf) {
                 sb.append("[Listing]: [" + levelOne.print() + "]\r\n");

@@ -23,7 +23,8 @@ public class Leaf implements IComposite {
         this.content = content;
     }
 
-    public IComposite get() {
+    @Override
+    public IComposite get(int i) {
         return this;
     }
 

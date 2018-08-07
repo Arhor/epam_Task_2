@@ -21,5 +21,11 @@ public abstract class Parser {
 		this.successor = successor;
 	}
 	
+    /**
+     * Parses text depending on implementation of the method in concrete class
+     * 
+     * @param text a String to parse
+     * @return Composite object that contains parsed text
+     */
 	public abstract IComposite parse(String str);
 }

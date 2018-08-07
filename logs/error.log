@@ -11,3 +11,66 @@ java.io.FileNotFoundException: text.txt (Не удается найти указанный файл)
 	at java.io.FileReader.<init>(Unknown Source)
 	at by.epam.training.service.util.InputFileReader.getString(InputFileReader.java:12)
 	at by.epam.training.runner.Runner.main(Runner.java:32)
+
+13:03:18,938 ERROR main [Runner]:main:31 - I/O exception
+java.io.FileNotFoundException: input.txt (Не удается найти указанный файл)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(Unknown Source)
+	at java.io.FileInputStream.<init>(Unknown Source)
+	at java.io.FileReader.<init>(Unknown Source)
+	at by.epam.training.service.util.InputFileReader.readText(InputFileReader.java:29)
+	at by.epam.training.runner.Runner.main(Runner.java:28)
+
+13:06:49,915 ERROR main [Runner]:IOExceptionHanle:87 - I/O exception
+java.io.FileNotFoundException: input.txt (Не удается найти указанный файл)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(Unknown Source)
+	at java.io.FileInputStream.<init>(Unknown Source)
+	at java.io.FileReader.<init>(Unknown Source)
+	at by.epam.training.service.util.InputFileReader.readText(InputFileReader.java:29)
+	at by.epam.training.runner.Runner.main(Runner.java:28)
+
+13:07:22,455 ERROR main [Runner]:main:31 - I/O exception
+java.io.FileNotFoundException: input.txt (Не удается найти указанный файл)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(Unknown Source)
+	at java.io.FileInputStream.<init>(Unknown Source)
+	at java.io.FileReader.<init>(Unknown Source)
+	at by.epam.training.service.util.InputFileReader.readText(InputFileReader.java:29)
+	at by.epam.training.runner.Runner.main(Runner.java:28)
+
+13:09:20,250 ERROR main [Runner]:main:32 - I/O exception
+java.io.FileNotFoundException: input.txt (Не удается найти указанный файл)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(Unknown Source)
+	at java.io.FileInputStream.<init>(Unknown Source)
+	at java.io.FileReader.<init>(Unknown Source)
+	at by.epam.training.service.util.InputFileReader.readText(InputFileReader.java:29)
+	at by.epam.training.runner.Runner.main(Runner.java:29)
+
+13:12:31,672 ERROR main [Runner]:main:36 - I/O exception
+java.io.FileNotFoundException: input.txt (Не удается найти указанный файл)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(Unknown Source)
+	at java.io.FileInputStream.<init>(Unknown Source)
+	at java.io.FileReader.<init>(Unknown Source)
+	at by.epam.training.service.util.InputFileReader.readText(InputFileReader.java:29)
+	at by.epam.training.runner.Runner.main(Runner.java:33)
+
+13:13:17,548 ERROR main [Runner]:main:37 - I/O exception
+java.io.FileNotFoundException: input.txt (Не удается найти указанный файл)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(Unknown Source)
+	at java.io.FileInputStream.<init>(Unknown Source)
+	at java.io.FileReader.<init>(Unknown Source)
+	at by.epam.training.service.util.InputFileReader.readText(InputFileReader.java:29)
+	at by.epam.training.runner.Runner.main(Runner.java:34)
+
+13:13:31,129 ERROR main [Runner]:main:37 - I/O exception
+java.io.FileNotFoundException: input.txt (Не удается найти указанный файл)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(Unknown Source)
+	at java.io.FileInputStream.<init>(Unknown Source)
+	at java.io.FileReader.<init>(Unknown Source)
+	at by.epam.training.service.util.InputFileReader.readText(InputFileReader.java:29)
+	at by.epam.training.runner.Runner.main(Runner.java:34)
