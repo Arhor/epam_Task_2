@@ -16,16 +16,16 @@ import by.epam.training.model.Leaf;
  */
 public class WordParser extends Parser {
 
-	/**
-	 * The method runs through char array that represents given String and
-	 * and each character is added to Composite object as Leaf object
-	 */
-	public IComposite parse(String word) {
-		CompositeObject compositeWord = new CompositeObject();
+    /**
+     * The method runs through char array that represents given String and
+     * and each character is added to Composite object as Leaf object
+     */
+    public IComposite parse(String word) {
+        CompositeObject compositeWord = new CompositeObject();
         for (char character : word.toCharArray()) {
             String current = String.valueOf(character);
             compositeWord.add(new Leaf(current));
         }
         return compositeWord;
-	}
+    }
 }

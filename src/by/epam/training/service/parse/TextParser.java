@@ -19,9 +19,9 @@ import by.epam.training.model.Leaf;
  * @author  Maxim Burishinets
  */
 public class TextParser extends Parser {
-	
-	private static final String TEXT_LINE = "((.+)(\\s?))|(\\s+)";
-	private static final String LISTING_START = "(\\\\~)(.*)(\\s?)";
+
+    private static final String TEXT_LINE = "((.+)(\\s?))|(\\s+)";
+    private static final String LISTING_START = "(\\\\~)(.*)(\\s?)";
     private static final String LISTING_END = "(\\s*)(.*)(~\\\\)(\\s?)";
     private static final String ONE_LINE_LISTING =
             "(\\s*)(\\\\~)(.+)(~\\\\)(\\s?)";
@@ -36,8 +36,8 @@ public class TextParser extends Parser {
      * added to Composite object as another Composite object. If successor is
      * not set - paragraph is added as a Leaf object.
      */
-	public IComposite parse(String text) {
-		CompositeObject compositeText = new CompositeObject();
+    public IComposite parse(String text) {
+        CompositeObject compositeText = new CompositeObject();
         Pattern pattern = Pattern.compile(TEXT_LINE);
         Matcher matcher = pattern.matcher(text);
         StringBuilder sb = new StringBuilder();
@@ -48,10 +48,10 @@ public class TextParser extends Parser {
             sb.append(current);
             if (!current.matches(LISTING_START) && !isListing
                     && !current.matches(ONE_LINE_LISTING)) {
-            	if (successor != null) {
-            		compositeText.add(successor.parse(current));
-            	} else {
-            		compositeText.add(new Leaf(current));
+                if (successor != null) {
+                    compositeText.add(successor.parse(current));
+                } else {
+                    compositeText.add(new Leaf(current));
             	}
                 sb = new StringBuilder();
             } else if (current.matches(LISTING_START) && !isListing
@@ -65,5 +65,5 @@ public class TextParser extends Parser {
             }
         }
         return compositeText;
-	}
+    }
 }

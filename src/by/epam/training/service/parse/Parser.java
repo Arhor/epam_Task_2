@@ -14,18 +14,18 @@ import by.epam.training.model.IComposite;
  * @author  Maxim Burishinets
  */
 public abstract class Parser {
-	
-	protected Parser successor;
-	
-	public void setSuccessor(Parser successor) {
-		this.successor = successor;
-	}
-	
+
+    protected Parser successor;
+    
+    public void setSuccessor(Parser successor) {
+        this.successor = successor;
+    }
+
     /**
      * Parses text depending on implementation of the method in concrete class
      * 
      * @param text a String to parse
      * @return Composite object that contains parsed text
      */
-	public abstract IComposite parse(String str);
+    public abstract IComposite parse(String str);
 }

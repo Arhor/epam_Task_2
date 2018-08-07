@@ -15,15 +15,15 @@ import by.epam.training.model.*;
  */
 public class TextExtractor {
 
-	/**
-	 * Extracts text from a Composite object.
-
-	 * @param wholeText Composite object that represents parsed text in a tree structure
-	 * @return String of text in parsed form
-	 */
-	public String ExtractText(CompositeObject wholeText) {
+    /**
+     * Extracts text from a Composite object.
+     *
+     * @param wholeText Composite object that represents parsed text in a tree structure
+     * @return String of text in parsed form
+     */
+    public String ExtractText(CompositeObject wholeText) {
         StringBuilder sb = new StringBuilder();
-    	for (int i = 0; i < wholeText.size(); i++) {
+        for (int i = 0; i < wholeText.size(); i++) {
             IComposite levelOne = wholeText.get(i);
             if (levelOne instanceof Leaf) {
                 sb.append("[Listing]: [" + levelOne.print() + "]\r\n");
@@ -37,10 +37,10 @@ public class TextExtractor {
                         if (levelThree instanceof Leaf) {
                             sb.append("[Delimiter]: [" + levelThree.print() + "]\r\n");
                         } else {
-                        	sb.append("     [Word]: [" + levelThree.print() + "]\r\n");
+                            sb.append("     [Word]: [" + levelThree.print() + "]\r\n");
                             for (int z = 0; z < ((CompositeObject)levelThree).size(); z++) {
-                            	IComposite levelFour = levelThree.get(z);
-                            	sb.append("[character]: [" + levelFour.print() + "]\r\n");
+                                IComposite levelFour = levelThree.get(z);
+                                sb.append("[character]: [" + levelFour.print() + "]\r\n");
                             }
                         }
                     }

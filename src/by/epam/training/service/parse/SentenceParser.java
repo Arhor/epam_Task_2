@@ -7,9 +7,7 @@ package by.epam.training.service.parse;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import by.epam.training.model.CompositeObject;
-import by.epam.training.model.IComposite;
-import by.epam.training.model.Leaf;
+import by.epam.training.model.*;
 
 /**
  * Class SentenceParser serves for parsing text line to separate
@@ -19,8 +17,8 @@ import by.epam.training.model.Leaf;
  * @author  Maxim Burishinets
  */
 public class SentenceParser extends Parser {
-	
-	private static final String WORD_OR_DELIMITER =
+
+    private static final String WORD_OR_DELIMITER =
             "([A-Za-z0-9]+)|([^A-Za-z0-9])";
     private static final String WORD = "[A-Za-z0-9]+";
 
@@ -30,8 +28,8 @@ public class SentenceParser extends Parser {
      * to Composite object as another Composite object, else it's added as a
      * Leaf object (represents delimiter). If successor is not set - it is added as Leaf.
      */
-	public IComposite parse(String sentence) {
-		CompositeObject compositeSentence = new CompositeObject();
+    public IComposite parse(String sentence) {
+        CompositeObject compositeSentence = new CompositeObject();
         Pattern pattern = Pattern.compile(WORD_OR_DELIMITER);
         Matcher matcher = pattern.matcher(sentence);
         String current = "";
@@ -44,5 +42,5 @@ public class SentenceParser extends Parser {
             }
         }
         return compositeSentence;
-	}
+    }
 }
