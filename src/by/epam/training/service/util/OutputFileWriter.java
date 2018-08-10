@@ -4,9 +4,12 @@
 
 package by.epam.training.service.util;
 
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Class OutputFileWriter provides easy interface for writing text to file
@@ -24,8 +27,8 @@ public class OutputFileWriter {
      */
     public void writeText(String path, String source) throws IOException {
         File file = new File(path);
-        try (FileWriter fileWriter = new FileWriter(file)) {
-            fileWriter.write(source);
+        try (BufferedWriter br = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {
+            br.write(source);
         } catch (IOException e) {
             throw e;
         }
